@@ -11,6 +11,6 @@ export const PostgresDataSource = new DataSource({
   password: DB_PASS,
   database: DB_NAME,
   entities: [GitHubUser],
-  logging: true,
+  /* logging: true, */
   synchronize: true
 })
