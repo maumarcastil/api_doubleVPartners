@@ -19,8 +19,6 @@ services:
       - db
     ports:
       - 8000:8000
-    networks:
-      - app_network
 
   db:
     image: postgres
@@ -30,19 +28,15 @@ services:
     volumes:
       - './postgres_data:/var/lib/postgresql/data'
     environment:
-      - POSTGRES_PASSWORD=secure_pass_here
-    networks:
-      - app_network
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres
 
-  adminer:
-    image: adminer
+  pgadmin:
+    container_name: pgadmin4_container
+    image: dpage/pgadmin4
     restart: always
+    environment:
+      PGADMIN_DEFAULT_EMAIL: admin@admin.com
+      PGADMIN_DEFAULT_PASSWORD: root
     ports:
-      - 8080:8080
-    networks:
-      - app_network
-
-# Define a network, which allows containers to communicate
-# with each other, by using their container name as a hostname
-networks:
-  app_network:
+      - "5050:80"
